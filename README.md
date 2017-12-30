@@ -15,13 +15,15 @@ For other talks, you may be interested in:
 Build Slides
 ------------
 
-To build rust-style html (in dist/_site)
+To build html slides (in dist/_site)
 
-     $ stack exec -- make html
+Initialize:
 
-To build reveal.js slides (in dist/_slides)
+     $ stack exec -- make client 
 
-     $ stack exec -- make slides
+Rebuild:
+
+     $ stack exec -- make 
 
 Edit Slides
 -----------
