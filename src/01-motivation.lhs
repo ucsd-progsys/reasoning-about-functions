@@ -1,5 +1,57 @@
 
-```
+<div class="hidden">
+\begin{code}
+module Intro where
+
+import Language.Haskell.Liquid.NewProofCombinators
+
+dummy :: Int
+dummy = 7
+\end{code}
+</div>
+
+<div class="slide">
+
+<br>
+<br>
+<br>
+
+
+<p align=center>
+<h1 style="border-bottom:none">Reasoning about Functions</h1>
+
+<br>
+
+<h4 style="border-bottom:none"><i>Ranjit Jhala (UCSD)</i></h4>
+</p>
+
+</div>
+
+Follow Along at This URL
+------------------------
+
+<br>
+<br>
+<br>
+
+[http://ucsd-progsys.github.io/reasoning-about-functions/](http://ucsd-progsys.github.io/reasoning-about-functions/)
+
+
+<br>
+
+Zoom in to see nav arrows
+
+Some Math
+---------
+
+
+$$\forall \overline{x}, \overline{y}.\ \overline{x} = \overline{y}\ \Rightarrow\ f(x) = f(y)$$
+
+
+Some Code
+---------
+
+\begin{code}
 {-@ assert :: {v:Bool | v} -> () @-}
 assert :: Bool -> ()
 assert b = ()
@@ -24,55 +76,58 @@ goal3 _
   =   sumTo 3
   === 3 + sumTo 2
   ==? 6         ? goal2'' ()
-```
+\end{code}
 
-# Reasoning about Functions
+I. Motivation
+-------------
 
-## I. Motivation
-
-### Motivation: Automated Reasoning
+Motivation: Automated Reasoning
+-------------------------------
 
    SMT awesome
      ... for "shallow" specifications over _decidable_ theories
      ... e.g. _quantifier free_ **arithmetic**, UF, sets, bit-vectors
 
-### Shallow Specifications
+Shallow Specifications
+----------------------
 
 How to verify?
 
-   ```
-   sum n =
-     if n <= 0 then 0 else n + sum (n-1)
+```
+sum n =
+  if n <= 0 then 0 else n + sum (n-1)
 
-   assert (0 <= sum(3))
-   ```
+_ = assert (0 <= sum(3))
+```
 
-### Shallow Specifications
-
-How to verify? Use a spec for `sum`
-
-   ```
-   sum n =
-     @ensures  (0 <= res)
-     if n <= 0 then 0 else n + sum (n-1)             ... (*)
-
-   goal () =
-     @ensures (0 <= sum(3))
-     ()
-   ```
-
-### Shallow Specifications
+Shallow Specifications
+----------------------
 
 How to verify? Use a spec for `sum`
 
-   ```
-   sum :: Int -> {res | 0 <= res}
-   sum n =
-     if n <= 0 then 0 else n + sum (n-1)             ... (1)
+```
+sum n =
+  @ensures  (0 <= res)
+  if n <= 0 then 0 else n + sum (n-1)             ... (*)
 
-   goal :: () -> { _ | 0 <= sum 3}
-   goal () = ()                                      ... (2)
-   ```
+goal () =
+  @ensures (0 <= sum(3))
+  ()
+```
+
+Shallow Specifications
+----------------------
+
+How to verify? Use a spec for `sum`
+
+```
+sum :: Int -> {res | 0 <= res}
+sum n =
+  if n <= 0 then 0 else n + sum (n-1)             ... (1)
+
+goal :: () -> { _ | 0 <= sum 3}
+goal () = ()                                      ... (2)
+```
 
 Generate VCs
 
@@ -82,9 +137,10 @@ Generate VCs
    0 <= sum(3) => 0 <= sum(3)                        ... (1)
    ```
 
-SMT says Valid!  
+SMT says Valid!
 
-### Motivation: Automated Reasoning about Functions
+Motivation: Automated Reasoning about Functions
+-----------------------------------------------
 
    SMT awesome
      ... for "shallow" specifications over _decidable_ theories
@@ -94,7 +150,8 @@ SMT says Valid!
      ... when spec (contract) _outside decidable_ theories
      ... e.g. containing **user defined functions**
 
-### Deep Specifications
+Deep Specifications
+-------------------
 
 Whats a good spec for `sum`?
 
@@ -113,24 +170,26 @@ The implementation **is** the specification!
 
 Oops. Axioms. SMT goes to die...[Footnote]
 
-### Deep Specifications are Everywhere
+Deep Specifications are Everywhere
+----------------------------------
 
-   * LAWS
+* LAWS
       - append_assoc,
       - le_sym, le_trans, [dillig-sousa]
 
-   * OPTIMIZATIONS
+* OPTIMIZATIONS
       - map_fusion
       - opt0
 
-   * INVARIANTS
+* INVARIANTS
       - filter
       - filter-query [tests/pos/binah-EvalQuery.hs]
 
-   * CORRECTNESS
+* CORRECTNESS
       - range i j
 
-### Motivation: Automated Reasoning about Functions
+Motivation: Automated Reasoning about Functions
+-----------------------------------------------
 
    SMT awesome
      ... for "shallow" specifications over _decidable_ theories
@@ -141,6 +200,8 @@ Oops. Axioms. SMT goes to die...[Footnote]
      ... e.g. containing **user defined functions**
 
    Goal: Make SMT predictable with user defined functions.
+
+
 
 ## II. Equational Reasoning / Reflection
 
@@ -259,18 +320,18 @@ Oops. Axioms. SMT goes to die...[Footnote]
    where
 
    ```
-   (===) :: x:a -> {y:a | y = x} ->  
+   (===) :: x:a -> {y:a | y = x} ->
 
 
 ## III. Equation Synthesis / PLE
 
   - Examples
-  - Algo   
+  - Algo
   - Algo by example
   - Completeness & Termination
 
 ## IV. Evaluation
-  - Tables & run-time  
+  - Tables & run-time
   - Examples (?)
     - OPTIMIZATIONS
     - INVARIANTS
