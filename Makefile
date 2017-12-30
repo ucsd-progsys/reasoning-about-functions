@@ -9,7 +9,7 @@ FILTERS=assets/filters
 JS=assets/js
 CSS=assets/css
 IMG=assets/img
-GHPAGE=../live/
+GHPAGE=docs/
 
 ##############################################
 PANDOC=pandoc
@@ -135,10 +135,6 @@ distclean:
 	rm -rf $(DIST)/* && rm -rf $(SITE)/* && rm -rf src/*.tex && rm -rf src/.liquid && rm -rf src/*.html
 
 upload: all
-	cp -r $(SITE)/* $(GHPAGE)
-	cd $(GHPAGE) && git add . && git commit -a -m "update page" && git push origin gh-pages
-
-live: all
 	cp -r $(SITE)/* $(GHPAGE)
 	cd $(GHPAGE) && git add . && git commit -a -m "update page" && git push origin master
 
