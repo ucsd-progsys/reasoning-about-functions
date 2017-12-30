@@ -1,4 +1,31 @@
 
+```
+{-@ assert :: {v:Bool | v} -> () @-}
+assert :: Bool -> ()
+assert b = ()
+
+goal  = assert (sumTo 0 == 0) &&& assert (sumTo 1 == 1)
+
+goal1 = assert (sumTo 0 == 0 && sumTo 1 == 1 && sumTo 2 == 3)
+
+{-@ reflect sumTo @-}
+sumTo :: Int -> Int
+sumTo n = if n <= 0 then 0 else n + sumTo (n - 1)
+
+{-@ goal2'' :: () -> { sumTo 2 == 3 } @-}
+goal2'' ()
+  =   sumTo 2
+  === 2 + sumTo 1
+  === 2 + 1 + sumTo 0
+  === 3
+
+{-@ goal3 :: _ -> { sumTo 2 == 3 } @-}
+goal3 _
+  =   sumTo 3
+  === 3 + sumTo 2
+  ==? 6         ? goal2'' ()
+```
+
 # Reasoning about Functions
 
 ## I. Motivation
