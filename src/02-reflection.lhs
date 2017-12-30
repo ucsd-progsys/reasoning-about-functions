@@ -141,14 +141,6 @@ Operators for Equational Reasoning
    (===) :: x:a -> {y:a | y = x} ->
 
 
-III. Equation Synthesis / PLE
-====
-
-  - Examples
-  - Algo
-  - Algo by example
-  - Completeness & Termination
-
 IV. Evaluation
 ====
 
