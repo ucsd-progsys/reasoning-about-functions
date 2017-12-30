@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <title>$$title$$</title>
+
+    <link href="$$root$$/css/bootstrap.css" rel="stylesheet">
+    <link href="$$root$$/css/bootstrap-theme.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="$$root$$/css/rust-book-slides.css">
+    <link rel="stylesheet" type="text/css" href="$$root$$/css/editor-slides.css">
+    <link rel="stylesheet" type="text/css" href="$$root$$/css/code-format.css">
+    <link rel="stylesheet" type="text/css" href="$$root$$/css/slideshow.css">
+    <style>
+      body {
+        text-align: center;
+      }
+      .mybreak {
+        line-height: 1em;
+      }
+      table {
+        margin-left: 150px;
+        margin-right: auto;
+      }
+    </style>
+
+    <!-- JQUERY MOBILE -->
+
+    <!-- Include jQuery Mobile stylesheets -->
+
+    <!-- Include the jQuery library -->
+     <!-- <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script> -->
+     <script src="./js/jquery/jquery-1.11.3.min.js"></script>
+     <script src="./js/jquery/init-mobile.js"></script>
+
+     <!-- Include the jQuery Mobile library -->
+     <!-- <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
+     <script src="./js/jquery/jquery.mobile-1.4.5.min.js"></script>
+
+<!-- JQUERY LOCAL
+
+<script type="text/javascript" src="./js/jquery/jquery-2.0.3.min.js"></script>
+
+-->
+
+
+
+<script type="text/javascript" src="$$root$$/js/angular/angular.js"></script>
+<script type="text/javascript" src="$$root$$/js/bootstrap/bootstrap.js"></script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: {
+    extensions: ["color.js"],
+    Macros: {
+      True: "\\mathit{True}",
+      RR:   "{\\bf R}",
+      Int:  "\\mathtt{Int}",
+      Nat:  "\\mathtt{Nat}",
+      Zero: "\\mathtt{Zero}",
+      foo:   ["{\\bf Jhala FOO #1}", 1],
+      kvar:  ["{\\color[rgb]{1,0,0}{K_{#1}({#2})}}", 2],
+      bindx: ["{{#1}\\!:\\!{#2}}", 2],
+      reft:  ["\\{\\bindx{#1}{#2} \\mid {#3}\\}", 3],
+      ereft: ["\\bindx{#1}{\\{#2 \\mid #3\\}}", 3],
+      reftx: ["\\{{#1}\\mid{#2}\\}", 2],
+      inferrule: ["\\frac{#2}{#3}\\;{#1}", 3]
+  }
+  }
+});
+</script>
+
+<!-- GITHUB
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+-->
+
+<!-- LOCAL -->
+<script src="js/MathJax-2.6.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+
+</head>
+
+<body class="rustdoc" data-spy="scroll" data-target=".bs-docs-sidebar" ng-app="liquidDemo" ng-controller="LiquidDemoCtrl">
+
+
+
+  <div id="nav">
+
+        <button class="btn btn-xs btn-link actbutton firstbutton" type="button" style="font-size:15px; color:black; z-index:1">
+          <span class="glyphicon glyphicon-backward"></span>
+        </button>
+
+        <button class="btn btn-xs btn-link actbutton prevbutton" type="button" style="font-size:15px; color:black;  z-index:1">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+
+        <button id="toggle-nav" class="toggle-nav">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+
+        <button class="btn btn-xs btn-link actbutton nextbutton" type="button" style="font-size:15px; color:black; z-index:1">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+        </button>
+
+        <button class="btn btn-xs btn-link actbutton lastbutton" type="button" style="font-size:15px; color:black; z-index:1">
+          <span class="glyphicon glyphicon-forward"></span>
+        </button>
+
+  </div>
+
+<div id='toc' class='mobile-hidden'>
+$toc
+</div>
+
+       <div id="checker-status">
+
+         <!-- Verifying ... -->
+         <button class="btn btn-xs btn-link actbutton" type="button" style="font-size:30px; z-index:1"
+                ng-show="isChecking" ng-click="verifySource()">
+          <span class="glyphicon glyphicon-hourglass"></span>
+         </button>
+
+
+         <!-- Safe -->
+         <button class="btn btn-xs btn-link actbutton" type="button" style="font-size:30px; color:green; z-index:1"
+                 ng-show="isSafe">
+           <span class="glyphicon glyphicon-ok"></span>
+         </button>
+
+         <div class="dropdown" ng-show="isBad">
+             <button class="btn btn-xs btn-link dropdown-toggle"
+                     type="button"
+                     id="errorblockdropdown"
+                     data-toggle="dropdown"
+                     style="font-size:30px; color:red; z-index:1">
+               <span class="glyphicon glyphicon-remove" style="vertical-align:middle"></span><font size="4">{{errorBlocks.length}}</font>
+               </span>
+             </button>
+             <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+               <li ng-repeat="err in errorBlocks">
+                 <a tabindex="-1" ng-click="jumpToProgPane(err)">{{err.index}}</a>
+               </li>
+             </ul>
+         </div>
+       </div>
+
+
+<div id='page-wrapper'>
+<div id='page'>
+
+$$if(notitle)$$
+$$else$$
+<h1 class="title">$$title$$</h1>
+$$endif$$
+$$body$$
+
+</div>
+</div>
+
+<!--Site Meter
+<div class="hidden">
+  <script type="text/javascript" src="http://s23.sitemeter.com/js/counter.js?site=s23liquidtypes"></script>
+  <noscript>
+    <a href="http://s23.sitemeter.com/stats.asp?site=s23liquidtypes"
+      target="_top">
+      <img src="http://s23.sitemeter.com/meter.asp?site=s23liquidtypes"
+      alt="Site Meter" border="0"/></a>
+  </noscript>
+</div>
+-->
+
+
+
+
+<!-- JavaScript below! ============================================== -->
+
+  <script src="$$root$$/js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+  <script src="$$root$$/js/ace/theme-monokai.js" type="text/javascript" charset="utf-8"></script>
+  <script src="$$root$$/js/ace/mode-haskell.js"  type="text/javascript" charset="utf-8"></script>
+  <script src="$$root$$/js/liquid/tooltip.js"></script>
+  <script src="$$root$$/js/liquid/annot.js"></script>
+  <script src="$$root$$/js/liquid/config.js"></script>
+  <script src="$$root$$/js/liquid/slideshow.js"></script>
+  <script src="$$root$$/js/liquid/liquid.js"></script>
+
+  <script type="text/javascript">
+    var queryServerURL = "$$liquidserver$$" ;
+  </script>
+
+  <!-- rust nav JS -->
+  <script type="text/javascript">
+    window.playgroundUrl = "";
+  </script>
+
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function(event) {
+
+ document.getElementById("toggle-nav").onclick = toggleNav;
+
+  function toggleNav() {
+    var toc         = document.getElementById("toc");
+    var pagewrapper = document.getElementById("page-wrapper");
+    var status      = document.getElementById("checker-status");
+
+    toggleClass(toc,         "mobile-hidden");
+    // toggleClass(status,      "mobile-hidden");
+    toggleClass(pagewrapper, "mobile-hidden");
+  };
+
+  function toggleClass(el, className) {
+     // from http://youmightnotneedjquery.com/
+     if (el.classList) {
+       el.classList.toggle(className);
+     } else {
+       var classes = el.className.split(' ');
+       var existingIndex = classes.indexOf(className);
+
+       if (existingIndex >= 0) {
+         classes.splice(existingIndex, 1);
+       } else {
+         classes.push(className);
+       }
+       el.className = classes.join(' ');
+     }
+  }
+});
+</script>
+
+
+
+
+</body>
+</html>
